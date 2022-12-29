@@ -2,6 +2,7 @@
 using MainAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainAPI.Controllers
 {
@@ -18,16 +19,16 @@ namespace MainAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetValues()
+        public async Task<IActionResult> GetValues()
         {
-            var values = _context.Set<Value>().ToList();
+            var values = await _context.Set<Value>().ToListAsync();
             return Ok(values);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetValue(int id)
+        public async Task<IActionResult> GetValue(int id)
         {
-            var values = _context.Set<Value>().FirstOrDefault(x => x.Id == id);
+            var values = await _context.Set<Value>().FirstOrDefaultAsync(x => x.Id == id);
             return Ok(values);
         }
     }
