@@ -8,5 +8,6 @@ namespace MainAPI.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         DbSet<Value> Values { get; set; }
+        DbSet<User> Users { get; set; }
     }
 }
