@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using MainAPI.Data;
 using MainAPI.Dtos;
@@ -31,7 +32,7 @@ namespace MainAPI.Controllers
             userForRegisterDto.Username = userForRegisterDto.Username.Trim().ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.Username))
-                return BadRequest("User Alrready Exists");
+                return BadRequest("User Already Exists");
 
             var userToCreate = new User
             {
@@ -68,7 +69,14 @@ namespace MainAPI.Controllers
                 SigningCredentials = credentials
             };
 
-            var tokenHandler = new JwtSecurityTokenHandler(tokenDescriptor);
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return Ok(new
+            {
+                token = tokenHandler.WriteToken(token)
+            });
         }
     }
 }
