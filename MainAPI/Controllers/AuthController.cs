@@ -4,6 +4,7 @@ using System.Text;
 using MainAPI.Data;
 using MainAPI.Dtos;
 using MainAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
